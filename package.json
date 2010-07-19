@@ -6,5 +6,9 @@
 	"directories": { 
 		"lib" : "./lib"
 	},
-	"main": "./lib/simplegeo"
+	"main": "./lib/simplegeo",
+	"dependencies": {
+		"oauth-client": "0.1.5",
+		"geohash": "0.1.0"
+	}
 }
