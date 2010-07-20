@@ -12,7 +12,8 @@ function assertStatus(status) {
 }
 
 var layer = 'com.unscene';
-var client = simplegeo.createClient('8XeBKHXFepW8Z7ZSJHGZ3HaVwSHtTzcV','pSQMgfeUFSS9cTbw7CPuuv7vXW4LxNuD');
+var client = new simplegeo.SimpleGeoClient('8XeBKHXFepW8Z7ZSJHGZ3HaVwSHtTzcV','pSQMgfeUFSS9cTbw7CPuuv7vXW4LxNuD');
+sys.p(simplegeo.createClient())
 
 //Tests
 exports.endpointRecords = vows.describe('endpoint-records')
@@ -20,14 +21,14 @@ exports.endpointRecords = vows.describe('endpoint-records')
 	  'Adding a record': {
 	    'without a type, creation date or extra properties':{
 	      topic: function() {
-	        var record = new simplegeo.Record(layer,100 + Math.random() * 100, 28.541647, -81.369874);
+	        var record = simplegeo.createRecord(layer,100 + Math.random() * 100, 28.541647, -81.369874);
 	        client.addRecord(record,this.callback);
 	      },
 	      'should return a status code 202': assertStatus(202),
 	    },
 	    'with a type, creation date and extra properties': {
 	      topic: function() {
-	        var record = new simplegeo.Record(layer,100 + Math.random() * 100, 28.541647, -81.369874, 'Point', 
+	        var record = simplegeo.createRecord(layer,100 + Math.random() * 100, 28.541647, -81.369874, 'Point', 
 	          Math.floor(new Date().getTime / 1000), {
 	            test: 'test'
 	          });
@@ -41,7 +42,7 @@ exports.endpointRecords = vows.describe('endpoint-records')
         
         var records = [];
         for (var i=0; i < 10; i++) {
-          records.push(new simplegeo.Record(layer,300 + i, 28.541647, -81.369874, 'Point', 
+          records.push(simplegeo.createRecord(layer,300 + i, 28.541647, -81.369874, 'Point', 
     	      Math.floor(new Date().getTime / 1000), {
     	        test: 'test'
     	      }));
@@ -116,13 +117,9 @@ exports.endpointRecords = vows.describe('endpoint-records')
 exports.utilities = vows.describe('utilities')
 	.addBatch({
 		'String formatter': {
-		  topic: function(){ return "%{lat},%{long}".format({
-		      lat:1,
-		      long:1
-		    }) 
-		  },
-		  'should replace any tokens by name from the provided object': function(result) {
-			  assert.equal(result,"1,1");
+		  topic: function () { return function(obj,str) { return String.format(obj,str) } },
+		  'should replace any tokens by name from the provided object': function(topic) {
+			  assert.equal(topic("%{lat}, %{lon}",{lat:1,lon:1}),"1,1");
 		  }
 	  }
 });

@@ -32,7 +32,7 @@ Creating a client involves providing your API key and token.  Get them [here](ht
 
 Adding a record or records is easy. Simply create a record object:
 
-	var record = new simplegeo.Record('com.yourlayer',1,28.541647,-81.369874);
+	var record = simplegeo.createRecord('com.yourlayer',1,28.541647,-81.369874);
 
 The parameters are: layer, id, lon, lat, type, created, props.  'Props' should be an object.  You do not have to specify a created time, as it will get auto populated to the correct format in ticks.
 
