@@ -12,8 +12,7 @@ function assertStatus(status) {
 }
 
 var layer = 'com.unscene';
-var client = new simplegeo.SimpleGeoClient('8XeBKHXFepW8Z7ZSJHGZ3HaVwSHtTzcV','pSQMgfeUFSS9cTbw7CPuuv7vXW4LxNuD');
-sys.p(simplegeo.createClient())
+var client = new simplegeo.createClient('YOUR_KEY','YOUR_SECRET');
 
 //Tests
 exports.endpointRecords = vows.describe('endpoint-records')
