@@ -1,3 +1,4 @@
+**Simplegeo is now defunct and it should go without saying that this is as well, but hey just sayin'**
 
 # Overview
 A simple [SimpleGeo](http://simplegeo.com/) client.  The library draw a lot off of the official [python client](http://github.com/simplegeo/python-simplegeo), so usage should be almost identical.
